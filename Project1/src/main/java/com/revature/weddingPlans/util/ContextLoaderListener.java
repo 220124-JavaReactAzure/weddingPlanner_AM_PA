@@ -6,6 +6,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.weddingPlans.MainDriver;
 import com.revature.weddingPlans.servlets.AuthServlet;
 
 @WebListener
@@ -16,8 +17,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		ObjectMapper mapper = new ObjectMapper();
 		
 		AuthServlet authServlet = new AuthServlet(mapper);
+		MainDriver mainServlet = new MainDriver(mapper);
 		
 		ServletContext context = sce.getServletContext();
+		context.addServlet("MainServlet", mainServlet).addMapping("/main");
 		context.addServlet("AuthServlet", authServlet).addMapping("/auth");
 }
 	

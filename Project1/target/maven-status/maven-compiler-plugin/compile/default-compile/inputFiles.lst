@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\Test.java
-=======
-C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\models\User.java
-C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\servlets\AuthServlet.java
-C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\Test.java
-C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\util\ContextLoaderListener.java
->>>>>>> 8d188efbacfa846efdbf791849ad1a01040f194f
+C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\MainDriver.java
+C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\servlets\AuthServlet.java
+C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\models\User.java
+C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\util\ContextLoaderListener.java
