@@ -4,3 +4,8 @@
 
 # Log file
 *.log
+
+*.war
+*.lst
+*.properties
+*.xml
