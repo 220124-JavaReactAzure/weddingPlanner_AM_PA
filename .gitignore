@@ -5,7 +5,12 @@
 # Log file
 *.log
 
+<<<<<<< HEAD
 *.war
 *.lst
 *.properties
 *.xml
+=======
+# JAR files
+*.jar
+>>>>>>> 8d188efbacfa846efdbf791849ad1a01040f194f
