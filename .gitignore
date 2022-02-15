@@ -11,3 +11,5 @@
 *.xml
 # JAR files
 *.jar
+.settings
+.project
