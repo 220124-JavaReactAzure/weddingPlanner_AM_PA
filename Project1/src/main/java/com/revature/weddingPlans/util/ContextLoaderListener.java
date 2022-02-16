@@ -14,14 +14,17 @@ public class ContextLoaderListener implements ServletContextListener{
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		
 		ObjectMapper mapper = new ObjectMapper();
-		
-		AuthServlet authServlet = new AuthServlet(mapper);
-		MainDriver mainServlet = new MainDriver(mapper);
-		
 		ServletContext context = sce.getServletContext();
-		context.addServlet("MainServlet", mainServlet).addMapping("/main");
-		context.addServlet("AuthServlet", authServlet).addMapping("/auth");
+		
+		UserDAO userDAO = new UserDAO();
+		UserServices userServices = new UserServices(userDAO);
+		UserServlet userServlet = new UserServlet(UserServices, mapper);
+		
+		context.addServlet("UserServlet", userServlet).addMapping("/users/*");
+		
+		
 }
 	
 	@Override
