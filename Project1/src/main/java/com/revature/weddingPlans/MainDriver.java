@@ -21,15 +21,13 @@ public class MainDriver extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		System.out.println("Init has been called for TestServlet");
+		System.out.println("Init has been called for MainServlet");
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String firstName = req.getParameter("firstname");
-		String lastName = req.getParameter("lastname");
-		resp.getWriter().write("<h1>" + firstName + " " + lastName + "</h1>");
+		
 	}
 
 	@Override

@@ -24,13 +24,13 @@ public class AuthServlet extends HttpServlet {
 
 		String firstName = req.getParameter("firstname");
 		String lastName = req.getParameter("lastname");
-		resp.getWriter().write("AuthServlet <h1>" + firstName + " " + lastName + "</h1>");
+		resp.getWriter().write("AuthServlet" + "<h1>" + firstName + " " + lastName + "</h1>");
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 //		LoginCredentials loginCreds = mapper.readValue(req.getInputStream(), LoginCredentials.class);
-		resp.getWriter().write("<h1>AuthServlet doPost </h1>");
+		resp.getWriter().write("<h1>" + "AuthServlet doPost" + "</h1>");
 
 	}
 }
