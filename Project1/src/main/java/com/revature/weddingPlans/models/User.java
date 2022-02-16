@@ -18,7 +18,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name="userId")
 	private int id;
 	@Column(name="username", unique = true, nullable = false)
 	private String username;
@@ -66,6 +66,12 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return id == other.id && Objects.equals(username, other.username);
+	}
+
+
+	public Object getEmail() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -15,7 +15,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.weddingPlans.models.User;
 import com.revature.weddingPlans.services.UserServices;
 
-public class UserServlet extends HttpServlet {
+
+
+
+public class UserServlet extends HttpServlet{
 	
 	private final UserServices userServices;
 	private final ObjectMapper mapper;
@@ -25,16 +28,12 @@ public class UserServlet extends HttpServlet {
 		this.mapper = mapper;
 	}
 	
+	// RCUD - order
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		PrintWriter writer = resp.getWriter();
-//		String path = req.getPathInfo();
-		System.out.println("doGet");
-		resp.getWriter().write("<h1>Test Servlet is working for Monster Lab</h1>");
-		
 		// Switch statements are back sorry
 		PrintWriter writer = resp.getWriter();
-		// Obtains everything after the /Users
+		// Obtains everything after the /users
 		String path = req.getPathInfo();
 		if(path == null) path = "";
 		switch(path) {
@@ -43,19 +42,19 @@ public class UserServlet extends HttpServlet {
 				String idParam = req.getParameter("UserId");
 				if(idParam == null) {
 					resp.setStatus(400);
-					writer.write("Please include the query ?UserId=# in your url");
+					writer.write("Please include the query ?userId=# in your url");
 					return;
 				}
 				
 				int UserId = Integer.valueOf(idParam);
 				
 			
-				User User = userServices.getUserById(UserId);
-				if(User == null) {
+				User user = userServices.getUserById(userId);
+				if(user == null) {
 					resp.setStatus(500);
 					return;
 				}
-				String payload = mapper.writeValueAsString(User);
+				String payload = mapper.writeValueAsString(user);
 				writer.write(payload);
 				resp.setStatus(200);
 			} catch (StreamReadException | DatabindException e) {
@@ -63,8 +62,8 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		default:
-			List<User> Users = userServices.getAllUsers();
-			String payload = mapper.writeValueAsString(Users);
+			List<User> users = userServices.getAllUsers();
+			String payload = mapper.writeValueAsString(users);
 			writer.write(payload);
 			resp.setStatus(200);
 			break;
@@ -76,7 +75,6 @@ public class UserServlet extends HttpServlet {
 		resp.setContentType("application/json");
 		try {
 			User newUser = mapper.readValue(req.getInputStream(), User.class);
-			System.out.println(newUser);
 			boolean wasReg = userServices.addUser(newUser);
 			if(wasReg) {
 				resp.setStatus(201);
