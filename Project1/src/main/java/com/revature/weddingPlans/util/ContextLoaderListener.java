@@ -7,7 +7,10 @@ import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.weddingPlans.MainDriver;
+import com.revature.weddingPlans.Daos.UserDAO;
+import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.servlets.AuthServlet;
+import com.revature.weddingPlans.web.servlets.UserServlet;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener{
@@ -16,12 +19,12 @@ public class ContextLoaderListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent sce) {
 		ObjectMapper mapper = new ObjectMapper();
 		
-		AuthServlet authServlet = new AuthServlet(mapper);
-		MainDriver mainServlet = new MainDriver(mapper);
+		UserDAO userDAO = new UserDAO();
+		UserServices userService = new UserServices(userDAO);
+		UserServlet userServlet = new UserServlet(userService, mapper);
 		
 		ServletContext context = sce.getServletContext();
-		context.addServlet("MainServlet", mainServlet).addMapping("/main");
-		context.addServlet("AuthServlet", authServlet).addMapping("/auth");
+		context.addServlet("UserServlet", userServlet);
 }
 	
 	@Override

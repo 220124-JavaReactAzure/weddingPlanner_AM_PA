@@ -17,6 +17,11 @@ private final UserDAO userDAO;
 		
 		return userDAO.addUser(user);
 	}
+
+	public User getUserById(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 //	public List<User> getAllUsers(){
 //		return userDAO.getAllUsers();
