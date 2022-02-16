@@ -46,7 +46,7 @@ public class UserServlet extends HttpServlet{
 					return;
 				}
 				
-				int UserId = Integer.valueOf(idParam);
+				int userId = Integer.valueOf(idParam);
 				
 			
 				User user = userServices.getUserById(userId);
@@ -74,8 +74,8 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			User newUser = mapper.readValue(req.getInputStream(), User.class);
-			boolean wasReg = userServices.addUser(newUser);
+			User newuser = mapper.readValue(req.getInputStream(), User.class);
+			boolean wasReg = userServices.addUser(newuser);
 			if(wasReg) {
 				resp.setStatus(201);
 			} else {
@@ -96,9 +96,8 @@ public class UserServlet extends HttpServlet{
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			User updatedUser = mapper.readValue(req.getInputStream(), User.class);
-			//UserServices.updateUserWithHQL(updatedUser);
-			userServices.updateUserWithSessionMethod(updatedUser);
+			User updateduser = mapper.readValue(req.getInputStream(), User.class);
+			userServices.updateUserWithSessionMethod(updateduser);
 			resp.setStatus(204);	
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
