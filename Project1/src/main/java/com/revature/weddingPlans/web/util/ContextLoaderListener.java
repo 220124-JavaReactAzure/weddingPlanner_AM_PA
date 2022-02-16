@@ -1,4 +1,4 @@
-package com.revature.weddingPlans.util;
+package com.revature.weddingPlans.web.util;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
