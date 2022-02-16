@@ -23,10 +23,10 @@ private final UserDAO userDAO;
 		return null;
 	}
 	
-//	public List<User> getAllUsers(){
-//		return userDAO.getAllUsers();
-//		
-//	}
+	public List<User> getAllUsers(){
+		return userDAO.getAllUsers();
+		
+	}
 	
 //	public User getUserById(int id){
 //		
@@ -34,10 +34,11 @@ private final UserDAO userDAO;
 //	}
 	
 	
-//	public void updateUserWithSessionMethod(User user) {
-//		
-//		userDAO.updateUserWithSessionMethod(user);
-//	}
+	public void updateUserWithSessionMethod(User user) {
+		
+		userDAO.updateUserWithSessionMethod(user);
+
+	}
 	
 //	public void updateUserWithHQL(User user) {
 //		

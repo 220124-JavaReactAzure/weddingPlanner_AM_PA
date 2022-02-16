@@ -6,10 +6,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.weddingPlans.MainDriver;
 import com.revature.weddingPlans.Daos.UserDAO;
 import com.revature.weddingPlans.services.UserServices;
-import com.revature.weddingPlans.servlets.AuthServlet;
+
 import com.revature.weddingPlans.web.servlets.UserServlet;
 
 @WebListener
@@ -24,7 +23,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		UserDAO userDAO = new UserDAO();
 		UserServices userServices = new UserServices(userDAO);
-		UserServlet userServlet = new UserServlet(UserServices, mapper);
+		UserServlet userServlet = new UserServlet(userServices, mapper);
 		
 		context.addServlet("UserServlet", userServlet).addMapping("/users/*");
 		

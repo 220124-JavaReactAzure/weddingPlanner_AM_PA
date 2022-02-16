@@ -1,7 +1,7 @@
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\services\UserServices.java
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\Daos\UserDAO.java
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\MainDriver.java
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\util\HibernateUtil.java
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\servlets\AuthServlet.java
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\models\User.java
-C:\Users\agame\Desktop\Project1\Project1\src\main\java\com\revature\weddingPlans\util\ContextLoaderListener.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\services\UserServices.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\util\HibernateUtil.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\MainDriver.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\models\User.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\Daos\UserDAO.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\web\servlets\UserServlet.java
+C:\Users\paglipay\Documents\workspace-spring-tools-weddingPlanner\weddingPlanner_AM_PA\Project1\src\main\java\com\revature\weddingPlans\util\ContextLoaderListener.java
