@@ -17,32 +17,27 @@ private final UserDAO userDAO;
 		
 		return userDAO.addUser(user);
 	}
-
-	public User getUserById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public List<User> getAllUsers(){
+		return userDAO.getAllUsers();
+		
 	}
 	
-//	public List<User> getAllUsers(){
-//		return userDAO.getAllUsers();
-//		
-//	}
-	
-//	public User getUserById(int id){
-//		
-//		return userDAO.getUserById(id);
-//	}
+	public User getUserById(int id){
+		
+		return userDAO.getUserById(id);
+	}
 	
 	
-//	public void updateUserWithSessionMethod(User user) {
-//		
-//		userDAO.updateUserWithSessionMethod(user);
-//	}
+	public void updateUserWithSessionMethod(User user) {
+		
+		userDAO.updateUserWithSessionMethod(user);
+	}
 	
-//	public void updateUserWithHQL(User user) {
-//		
-//		userDAO.updateUserWithHQL(user);
-//	}
+	public void updateUserWithHQL(User user) {
+		
+		userDAO.updateUserWithHQL(user);
+	}
 	
 	
 }
