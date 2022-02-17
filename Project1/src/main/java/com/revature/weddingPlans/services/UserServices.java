@@ -13,6 +13,10 @@ private final UserDAO userDAO;
 		this.userDAO = userDAO;
 	}
 	
+	public void insertUser(User user) {
+		userDAO.insertUser(user);
+	}
+	
 	public boolean addUser(User user) {
 		
 		return userDAO.addUser(user);

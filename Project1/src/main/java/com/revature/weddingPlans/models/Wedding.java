@@ -1,7 +1,8 @@
 package com.revature.weddingPlans.models;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,85 +18,56 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+
 @Entity
-@Table(name="users")
+@Table(name = "weddings")
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id")
-public class User {
-	
+public class Wedding {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name = "wedding_id")
 	private int id;
-	@Column(name="username", unique = true, nullable = false)
-	private String username;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "wedding_id") 
-	public Wedding wedding;
+	private String description;
 	
-	public User() {
-		super();
-	}
-	
-	public User(int id, String username, Wedding wedding) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.wedding = wedding;
-	}
-
-
-	public User(String username, Wedding wedding) {
-		super();
-		this.username = username;
-		this.wedding = wedding;
-	}
-
-
+	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
+	private List<User> users;
 
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-	public String getUsername() {
-		return username;
+	public String getDescription() {
+		return description;
 	}
 
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-
-	public Wedding getWedding() {
-		return wedding;
+	public List<User> getUsers() {
+		return users;
 	}
 
-
-	public void setWedding(Wedding wedding) {
-		this.wedding = wedding;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
-
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", wedding=" + wedding + "]";
+		return "Wedding [id=" + id + ", description=" + description + ", users=" + users + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, wedding);
+		return Objects.hash(description, id, users);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -105,10 +77,9 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
-		return id == other.id && Objects.equals(username, other.username) && Objects.equals(wedding, other.wedding);
+		Wedding other = (Wedding) obj;
+		return Objects.equals(description, other.description) && id == other.id && Objects.equals(users, other.users);
 	}
-
-
 	
+
 }

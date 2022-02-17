@@ -9,25 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.weddingPlans.models.User;
 import com.revature.weddingPlans.models.Wedding;
-import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.services.WeddingServices;
 
-
-
-
-public class UserServlet extends HttpServlet{
+public class WeddingServlet extends HttpServlet{
 	
-	private final UserServices userServices;
-	private final ObjectMapper mapper;
 	private final WeddingServices weddingServices;
+	private final ObjectMapper mapper;
 	
-	public UserServlet(UserServices userServices, WeddingServices weddingServices, ObjectMapper mapper) {
-		this.userServices = userServices;
+	public WeddingServlet(WeddingServices weddingServices, ObjectMapper mapper) {
 		this.weddingServices = weddingServices;
 		this.mapper = mapper;
 	}
@@ -37,28 +31,28 @@ public class UserServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// Switch statements are back sorry
 		PrintWriter writer = resp.getWriter();
-		// Obtains everything after the /users
+		// Obtains everything after the /weddings
 		String path = req.getPathInfo();
 		if(path == null) path = "";
 		switch(path) {
 		case "/ID":
 			try {
-				String idParam = req.getParameter("UserId");
+				String idParam = req.getParameter("weddingId");
 				if(idParam == null) {
 					resp.setStatus(400);
-					writer.write("Please include the query ?userId=# in your url");
+					writer.write("Please include the query ?weddingId=# in your url");
 					return;
 				}
 				
-				int userId = Integer.valueOf(idParam);
+				int weddingId = Integer.valueOf(idParam);
 				
 			
-				User user = userServices.getUserById(userId);
-				if(user == null) {
+				Wedding wedding = weddingServices.getWeddingById(weddingId);
+				if(wedding == null) {
 					resp.setStatus(500);
 					return;
 				}
-				String payload = mapper.writeValueAsString(user);
+				String payload = mapper.writeValueAsString(wedding);
 				writer.write(payload);
 				resp.setStatus(200);
 			} catch (StreamReadException | DatabindException e) {
@@ -66,8 +60,8 @@ public class UserServlet extends HttpServlet{
 			}
 			break;
 		default:
-			List<User> users = userServices.getAllUsers();
-			String payload = mapper.writeValueAsString(users);
+			List<Wedding> weddings = weddingServices.getAllWeddings();
+			String payload = mapper.writeValueAsString(weddings);
 			writer.write(payload);
 			resp.setStatus(200);
 			break;
@@ -78,17 +72,14 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			String idParam = req.getParameter("weddingId");
-			if(idParam == null) {
-				resp.setStatus(400);
-				resp.getWriter().write("Please include the query ?weddingId=# in your url");
-				return;
+			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
+			boolean wasReg = weddingServices.addWedding(newWedding);
+			if(wasReg) {
+				resp.setStatus(201);
+			} else {
+				resp.setStatus(500);
+				resp.getWriter().write("Database did not persist");
 			}
-			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
-			User newUser = mapper.readValue(req.getInputStream(), User.class);
-			newUser.setWedding(wedding);
-			userServices.insertUser(newUser);
-			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");
@@ -103,8 +94,9 @@ public class UserServlet extends HttpServlet{
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			User updateduser = mapper.readValue(req.getInputStream(), User.class);
-			userServices.updateUserWithSessionMethod(updateduser);
+			Wedding updatedWedding = mapper.readValue(req.getInputStream(), Wedding.class);
+			//weddingServices.updateWeddingWithHQL(updatedWedding);
+			weddingServices.updateWeddingWithSessionMethod(updatedWedding);
 			resp.setStatus(204);	
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
