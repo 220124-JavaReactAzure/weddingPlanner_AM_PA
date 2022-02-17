@@ -72,17 +72,14 @@ public class WeddingServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			String idParam = req.getParameter("weddingId");
-			if(idParam == null) {
-				resp.setStatus(400);
-				resp.getWriter().write("Please include the query ?directorId=# in your url");
-				return;
-			}
-			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
-			newWedding.setWedding(wedding);
-			weddingServices.insertWedding(newWedding);
-			resp.setStatus(201);
+			boolean wasReg = weddingServices.addWedding(newWedding);
+			if(wasReg) {
+				resp.setStatus(201);
+			} else {
+				resp.setStatus(500);
+				resp.getWriter().write("Database did not persist");
+			}
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");

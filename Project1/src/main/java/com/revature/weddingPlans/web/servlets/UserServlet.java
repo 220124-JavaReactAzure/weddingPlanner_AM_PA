@@ -13,7 +13,9 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.weddingPlans.models.User;
+import com.revature.weddingPlans.models.Wedding;
 import com.revature.weddingPlans.services.UserServices;
+import com.revature.weddingPlans.services.WeddingServices;
 
 
 
@@ -22,9 +24,11 @@ public class UserServlet extends HttpServlet{
 	
 	private final UserServices userServices;
 	private final ObjectMapper mapper;
+	private final WeddingServices weddingServices;
 	
-	public UserServlet(UserServices userServices, ObjectMapper mapper) {
+	public UserServlet(UserServices userServices, WeddingServices weddingServices, ObjectMapper mapper) {
 		this.userServices = userServices;
+		this.weddingServices = weddingServices;
 		this.mapper = mapper;
 	}
 	
@@ -74,14 +78,17 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			User newuser = mapper.readValue(req.getInputStream(), User.class);
-			boolean wasReg = userServices.addUser(newuser);
-			if(wasReg) {
-				resp.setStatus(201);
-			} else {
-				resp.setStatus(500);
-				resp.getWriter().write("Database did not persist");
+			String idParam = req.getParameter("weddingId");
+			if(idParam == null) {
+				resp.setStatus(400);
+				resp.getWriter().write("Please include the query ?weddingId=# in your url");
+				return;
 			}
+			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
+			User newUser = mapper.readValue(req.getInputStream(), User.class);
+			newUser.setWedding(wedding);
+			userServices.insertUser(newUser);
+			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");

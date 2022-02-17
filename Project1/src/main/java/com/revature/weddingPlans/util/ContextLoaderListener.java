@@ -25,17 +25,21 @@ public class ContextLoaderListener implements ServletContextListener{
 
 		ServletContext context = sce.getServletContext();
 		
-		UserDAO userDAO = new UserDAO();
-		UserServices userServices = new UserServices(userDAO);
-		UserServlet userServlet = new UserServlet(userServices, mapper);
-		
-		context.addServlet("UserServlet", userServlet).addMapping("/users/*");
-		
 		WeddingDAO weddingDAO = new WeddingDAO();
 		WeddingServices weddingServices = new WeddingServices(weddingDAO);
 		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, mapper);
-		
+
 		context.addServlet("WeddingServlet", weddingServlet).addMapping("/weddings/*");
+		
+		
+		UserDAO userDAO = new UserDAO();
+		UserServices userServices = new UserServices(userDAO);
+		UserServlet userServlet = new UserServlet(userServices, weddingServices,  mapper);
+		
+		context.addServlet("UserServlet", userServlet).addMapping("/users/*");
+		
+
+		
 
 }
 	
