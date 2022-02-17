@@ -69,28 +69,28 @@ public class UserDAO {
 
 	}
 // Not truly implemented
-	public void updateUserWithHQL(User user) {
-		try {
-			Session session = HibernateUtil.getSession();
-			Transaction transaction = session.beginTransaction();
-			
-//			Query query = session.createQuery("update User set email='" + User.getEmail() + 
-//					"', first_name='" + User.getFirstName() + 
-//					"', last_name='" + User.getLastName() + 
-//					"', year_born=" + User.getYearBorn() +
-//					" WHERE User_id=" + User.getId());
-			
-			Query query = session.createQuery("update User set email= :email, first_name= :firstName, last_name= :lastName, year_born=:yearBorn where User_id = :id");
-			query.setParameter("email", user.getEmail());
-			query.executeUpdate();
-			transaction.commit();
-		} catch (HibernateException | IOException e) {
-			e.printStackTrace();
-		} finally {
-			HibernateUtil.closeSession();
-		}
-		
-	}
+//	public void updateUserWithHQL(User user) {
+//		try {
+//			Session session = HibernateUtil.getSession();
+//			Transaction transaction = session.beginTransaction();
+//			
+////			Query query = session.createQuery("update User set email='" + User.getEmail() + 
+////					"', first_name='" + User.getFirstName() + 
+////					"', last_name='" + User.getLastName() + 
+////					"', year_born=" + User.getYearBorn() +
+////					" WHERE User_id=" + User.getId());
+//			
+//			Query query = session.createQuery("update User set email= :email, first_name= :firstName, last_name= :lastName, year_born=:yearBorn where User_id = :id");
+//			query.setParameter("email", user.getEmail());
+//			query.executeUpdate();
+//			transaction.commit();
+//		} catch (HibernateException | IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			HibernateUtil.closeSession();
+//		}
+//		
+//	}
 
 	public void deleteUser(int id) {
 		try {
