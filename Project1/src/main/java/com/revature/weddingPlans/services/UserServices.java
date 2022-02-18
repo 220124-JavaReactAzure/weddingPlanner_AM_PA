@@ -7,7 +7,7 @@ import com.revature.weddingPlans.models.User;
 
 public class UserServices {
 
-private final UserDAO userDAO;
+	private final UserDAO userDAO;
 	
 	public UserServices(UserDAO userDAO) {
 		this.userDAO = userDAO;
