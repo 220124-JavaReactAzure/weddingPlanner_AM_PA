@@ -5,9 +5,9 @@
 *.war
 *.lst
 *.properties
-*.xml
 # JAR files
 *.jar
 *.settings
 *.project
 *.classpath
+/target/
