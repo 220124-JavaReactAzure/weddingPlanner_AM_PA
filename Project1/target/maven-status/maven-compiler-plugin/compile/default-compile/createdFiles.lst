@@ -12,3 +12,4 @@ com\revature\weddingPlans\util\HibernateUtil.class
 com\revature\weddingPlans\services\UserServices.class
 com\revature\weddingPlans\web\servlets\UserServlet.class
 com\revature\weddingPlans\services\WeddingServices.class
+com\revature\weddingPlans\web\servlets\MealServlet.class
