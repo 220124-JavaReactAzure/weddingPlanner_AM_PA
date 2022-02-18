@@ -29,6 +29,12 @@ public class MealServlet extends HttpServlet {
 		this.mapper = mapper;
 	}
 	
+	public MealServlet(MealServices mealServices, ObjectMapper mapper) {
+		this.mealServices = mealServices;
+		this.mapper = mapper;
+		this.userServices = null;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
