@@ -18,8 +18,6 @@ import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.services.WeddingServices;
 
 
-
-
 public class UserServlet extends HttpServlet{
 	
 	private final UserServices userServices;
@@ -50,8 +48,7 @@ public class UserServlet extends HttpServlet{
 					return;
 				}
 				
-				int userId = Integer.valueOf(idParam);
-				
+				int userId = Integer.valueOf(idParam);				
 			
 				User user = userServices.getUserById(userId);
 				if(user == null) {
