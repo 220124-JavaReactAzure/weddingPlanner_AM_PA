@@ -1,6 +1,5 @@
 com\revature\weddingPlans\Daos\WeddingDAO.class
 com\revature\weddingPlans\Daos\UserDAO.class
-com\revature\weddingPlans\util\ContextLoaderListener.class
 com\revature\weddingPlans\MainDriver.class
 com\revature\weddingPlans\models\User.class
 com\revature\weddingPlans\web\servlets\WeddingServlet.class
