@@ -80,11 +80,6 @@ public class WeddingServlet extends HttpServlet{
 		try {
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
 			
-//			Wedding wedding = sServices.getWeddingById(Integer.valueOf(idParam));
-//			User newUser = mapper.readValue(req.getInputStream(), User.class);
-//			newUser.setWedding(wedding);
-//			userServices.insertUser(newUser);
-			
 			Service service = serviceServices.getServiceById(Integer.valueOf(1));
 			System.out.println(service);
 			newWedding.setService(service);
