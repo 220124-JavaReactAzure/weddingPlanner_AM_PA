@@ -29,8 +29,8 @@ public class Wedding {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "wedding_id")
 	private int id;
-	
-	private String description;
+	@Column(name = "wedding_name")
+	private String weddingName;
 	
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	private List<User> users;
@@ -43,12 +43,14 @@ public class Wedding {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	
+
+	public String getWeddingName() {
+		return weddingName;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setWeddingName(String weddingName) {
+		this.weddingName = weddingName;
 	}
 
 	public List<User> getUsers() {
@@ -61,12 +63,12 @@ public class Wedding {
 
 	@Override
 	public String toString() {
-		return "Wedding [id=" + id + ", description=" + description + ", users=" + users + "]";
+		return "Wedding [id=" + id + ", weddingName=" + weddingName + ", users=" + users + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, users);
+		return Objects.hash(id, users, weddingName);
 	}
 
 	@Override
@@ -78,8 +80,10 @@ public class Wedding {
 		if (getClass() != obj.getClass())
 			return false;
 		Wedding other = (Wedding) obj;
-		return Objects.equals(description, other.description) && id == other.id && Objects.equals(users, other.users);
+		return id == other.id && Objects.equals(users, other.users) && Objects.equals(weddingName, other.weddingName);
 	}
+
+
 	
 
 }
