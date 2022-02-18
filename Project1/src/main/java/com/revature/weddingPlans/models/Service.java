@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-public class Services {
+public class Service {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,19 +31,19 @@ public class Services {
 	
 	
 
-	public Services() {
+	public Service() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Services(String serviceName, double serviceCost, int serviceType) {
+	public Service(String serviceName, double serviceCost, int serviceType) {
 		super();
 		this.serviceName = serviceName;
 		this.serviceCost = serviceCost;
 		this.serviceType = serviceType;
 	}
 
-	public Services(int serviceId, String serviceName, double serviceCost, int serviceType) {
+	public Service(int serviceId, String serviceName, double serviceCost, int serviceType) {
 		super();
 		this.serviceId = serviceId;
 		this.serviceName = serviceName;
@@ -102,7 +102,7 @@ public class Services {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Services other = (Services) obj;
+		Service other = (Service) obj;
 		return Double.doubleToLongBits(serviceCost) == Double.doubleToLongBits(other.serviceCost)
 				&& serviceId == other.serviceId && Objects.equals(serviceName, other.serviceName)
 				&& serviceType == other.serviceType;
