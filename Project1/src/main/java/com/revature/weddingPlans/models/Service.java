@@ -1,5 +1,6 @@
 package com.revature.weddingPlans.models;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -40,6 +42,16 @@ public class Service {
 	@Column(name="service_type_id")
 	private int serviceType;
 	
+	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
+	private List<Wedding> weddings;
+
+	public List<Wedding> getWeddings() {
+		return weddings;
+	}
+
+	public void setWeddings(List<Wedding> weddings) {
+		this.weddings = weddings;
+	}
 
 	public Service() {
 		super();
@@ -92,30 +104,6 @@ public class Service {
 
 	public void setServiceType(int serviceType) {
 		this.serviceType = serviceType;
-	}
-
-	@Override
-	public String toString() {
-		return "Service [id=" + id + ", serviceName=" + serviceName + ", serviceCost=" + serviceCost + ", serviceType="
-				+ serviceType + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, serviceCost, serviceName, serviceType);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Service other = (Service) obj;
-		return id == other.id && Double.doubleToLongBits(serviceCost) == Double.doubleToLongBits(other.serviceCost)
-				&& Objects.equals(serviceName, other.serviceName) && serviceType == other.serviceType;
 	}
 
 

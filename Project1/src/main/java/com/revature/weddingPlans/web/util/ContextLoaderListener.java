@@ -30,9 +30,6 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		WeddingDAO weddingDAO = new WeddingDAO();
 		WeddingServices weddingServices = new WeddingServices(weddingDAO);
-		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, mapper);
-
-		context.addServlet("WeddingServlet", weddingServlet).addMapping("/weddings/*");
 		
 		
 		UserDAO userDAO = new UserDAO();
@@ -46,6 +43,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		ServiceServlet serviceServlet = new ServiceServlet(serviceServices, mapper);
 		
 		context.addServlet("ServiceServlet", serviceServlet).addMapping("/services/*");
+		
+
+		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, serviceServices, mapper);
+		context.addServlet("WeddingServlet", weddingServlet).addMapping("/weddings/*");
 		
 
 		

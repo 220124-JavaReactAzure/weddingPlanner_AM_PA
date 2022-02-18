@@ -13,16 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.weddingPlans.models.Service;
+import com.revature.weddingPlans.models.User;
 import com.revature.weddingPlans.models.Wedding;
+import com.revature.weddingPlans.services.ServiceServices;
 import com.revature.weddingPlans.services.WeddingServices;
 
 public class WeddingServlet extends HttpServlet{
-	
+
 	private final WeddingServices weddingServices;
+	private final ServiceServices serviceServices;
+	
 	private final ObjectMapper mapper;
 	
-	public WeddingServlet(WeddingServices weddingServices, ObjectMapper mapper) {
+	public WeddingServlet(WeddingServices weddingServices, ServiceServices serviceServices, ObjectMapper mapper) {
 		this.weddingServices = weddingServices;
+		this.serviceServices = serviceServices;
 		this.mapper = mapper;
 	}
 	
@@ -73,6 +79,17 @@ public class WeddingServlet extends HttpServlet{
 		resp.setContentType("application/json");
 		try {
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
+			
+//			Wedding wedding = sServices.getWeddingById(Integer.valueOf(idParam));
+//			User newUser = mapper.readValue(req.getInputStream(), User.class);
+//			newUser.setWedding(wedding);
+//			userServices.insertUser(newUser);
+			
+			Service service = serviceServices.getServiceById(Integer.valueOf(1));
+			System.out.println(service);
+			newWedding.setService(service);
+
+			
 			boolean wasReg = weddingServices.addWedding(newWedding);
 			if(wasReg) {
 				resp.setStatus(201);
@@ -96,6 +113,9 @@ public class WeddingServlet extends HttpServlet{
 		try {
 			Wedding updatedWedding = mapper.readValue(req.getInputStream(), Wedding.class);
 			//weddingServices.updateWeddingWithHQL(updatedWedding);
+
+
+			
 			weddingServices.updateWeddingWithSessionMethod(updatedWedding);
 			resp.setStatus(204);	
 		} catch (StreamReadException | DatabindException e) {
