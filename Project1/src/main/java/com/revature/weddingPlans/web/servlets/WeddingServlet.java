@@ -110,7 +110,8 @@ public class WeddingServlet extends HttpServlet{
 			Wedding updatedWedding = mapper.readValue(req.getInputStream(), Wedding.class);
 			//weddingServices.updateWeddingWithHQL(updatedWedding);
 
-			Service service = serviceServices.getServiceById(Integer.valueOf(1));
+			int service_id = updatedWedding.getService().getId();
+			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
 			System.out.println(service);
 			updatedWedding.setService(service);
 			
