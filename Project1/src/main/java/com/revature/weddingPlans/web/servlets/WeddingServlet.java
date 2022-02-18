@@ -80,10 +80,10 @@ public class WeddingServlet extends HttpServlet{
 		try {
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
 			
-			Service service = serviceServices.getServiceById(Integer.valueOf(1));
-			System.out.println(service);
-			newWedding.setService(service);
+			int service_id = newWedding.getService().getId();
+			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
 
+			newWedding.setService(service);
 			
 			boolean wasReg = weddingServices.addWedding(newWedding);
 			if(wasReg) {
@@ -109,7 +109,10 @@ public class WeddingServlet extends HttpServlet{
 			Wedding updatedWedding = mapper.readValue(req.getInputStream(), Wedding.class);
 			//weddingServices.updateWeddingWithHQL(updatedWedding);
 
-
+			int service_id = updatedWedding.getService().getId();
+			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
+			System.out.println(service);
+			updatedWedding.setService(service);
 			
 			weddingServices.updateWeddingWithSessionMethod(updatedWedding);
 			resp.setStatus(204);	
