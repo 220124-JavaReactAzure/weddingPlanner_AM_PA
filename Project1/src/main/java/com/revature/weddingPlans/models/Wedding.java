@@ -34,6 +34,11 @@ public class Wedding {
 	
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	private List<User> users;
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "service_id") 
+	public Service service;
 
 	public int getId() {
 		return id;
@@ -61,27 +66,19 @@ public class Wedding {
 		this.users = users;
 	}
 
-	@Override
-	public String toString() {
-		return "Wedding [id=" + id + ", weddingName=" + weddingName + ", users=" + users + "]";
+	
+	
+	public Service getService() {
+		return service;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, users, weddingName);
+	public void setService(Service service) {
+		this.service = service;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Wedding other = (Wedding) obj;
-		return id == other.id && Objects.equals(users, other.users) && Objects.equals(weddingName, other.weddingName);
-	}
+
+
+
 
 
 	
