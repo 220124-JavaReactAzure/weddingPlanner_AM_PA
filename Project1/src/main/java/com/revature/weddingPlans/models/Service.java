@@ -33,43 +33,34 @@ public class Service {
 	private String serviceName;
 	
 
-//	@Column(name="service_cost")
-//	private double serviceCost;
-//	
+	@Column(name="service_cost")
+	private double serviceCost;
+	
 //	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@Column(name="service_type_id")
-//	private int serviceType;
-//	
+	@Column(name="service_type_id")
+	private int serviceType;
+	
 
 	public Service() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Service(String serviceName) {
+	public Service(String serviceName, double serviceCost, int serviceType) {
 		super();
 		this.serviceName = serviceName;
-//		this.serviceCost = serviceCost;
-//		this.serviceType = serviceType;
+		this.serviceCost = serviceCost;
+		this.serviceType = serviceType;
 	}
 
-	public Service(int id, String serviceName) {
+	public Service(int id, String serviceName, double serviceCost, int serviceType) {
 		super();
 		this.id = id;
 		this.serviceName = serviceName;
-//		this.serviceCost = serviceCost;
-//		this.serviceType = serviceType;
+		this.serviceCost = serviceCost;
+		this.serviceType = serviceType;
 	}
 
-
-
-	public String getServiceName() {
-		return serviceName;
-	}
-
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
 
 	public int getId() {
 		return id;
@@ -79,14 +70,39 @@ public class Service {
 		this.id = id;
 	}
 
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public double getServiceCost() {
+		return serviceCost;
+	}
+
+	public void setServiceCost(double serviceCost) {
+		this.serviceCost = serviceCost;
+	}
+
+	public int getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(int serviceType) {
+		this.serviceType = serviceType;
+	}
+
 	@Override
 	public String toString() {
-		return "Service [id=" + id + ", serviceName=" + serviceName + "]";
+		return "Service [id=" + id + ", serviceName=" + serviceName + ", serviceCost=" + serviceCost + ", serviceType="
+				+ serviceType + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, serviceName);
+		return Objects.hash(id, serviceCost, serviceName, serviceType);
 	}
 
 	@Override
@@ -98,26 +114,14 @@ public class Service {
 		if (getClass() != obj.getClass())
 			return false;
 		Service other = (Service) obj;
-		return id == other.id && Objects.equals(serviceName, other.serviceName);
+		return id == other.id && Double.doubleToLongBits(serviceCost) == Double.doubleToLongBits(other.serviceCost)
+				&& Objects.equals(serviceName, other.serviceName) && serviceType == other.serviceType;
 	}
 
-	
 
-//	public double getServiceCost() {
-//		return serviceCost;
-//	}
-//
-//	public void setServiceCost(double serviceCost) {
-//		this.serviceCost = serviceCost;
-//	}
-//
-//	public int getServiceType() {
-//		return serviceType;
-//	}
-//
-//	public void setServiceType(int serviceType) {
-//		this.serviceType = serviceType;
-//	}
+
+
+
 
 
 
