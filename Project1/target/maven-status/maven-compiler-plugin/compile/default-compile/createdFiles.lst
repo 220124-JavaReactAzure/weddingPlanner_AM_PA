@@ -1,11 +1,3 @@
-com\revature\weddingPlans\Daos\WeddingDAO.class
-com\revature\weddingPlans\Daos\UserDAO.class
-com\revature\weddingPlans\web\util\ContextLoaderListener.class
 com\revature\weddingPlans\MainDriver.class
 com\revature\weddingPlans\models\User.class
-com\revature\weddingPlans\web\servlets\WeddingServlet.class
 com\revature\weddingPlans\models\Wedding.class
-com\revature\weddingPlans\util\HibernateUtil.class
-com\revature\weddingPlans\services\UserServices.class
-com\revature\weddingPlans\web\servlets\UserServlet.class
-com\revature\weddingPlans\services\WeddingServices.class
