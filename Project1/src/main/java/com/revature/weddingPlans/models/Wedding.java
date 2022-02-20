@@ -29,11 +29,16 @@ public class Wedding {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "wedding_id")
 	private int id;
-	
-	private String description;
+	@Column(name = "wedding_name")
+	private String weddingName;
 	
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	private List<User> users;
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "service_id") 
+	public Service service;
 
 	public int getId() {
 		return id;
@@ -43,12 +48,14 @@ public class Wedding {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	
+
+	public String getWeddingName() {
+		return weddingName;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setWeddingName(String weddingName) {
+		this.weddingName = weddingName;
 	}
 
 	public List<User> getUsers() {
@@ -59,27 +66,21 @@ public class Wedding {
 		this.users = users;
 	}
 
-	@Override
-	public String toString() {
-		return "Wedding [id=" + id + ", description=" + description + ", users=" + users + "]";
+	
+	
+	public Service getService() {
+		return service;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(description, id, users);
+	public void setService(Service service) {
+		this.service = service;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Wedding other = (Wedding) obj;
-		return Objects.equals(description, other.description) && id == other.id && Objects.equals(users, other.users);
-	}
+
+
+
+
+
 	
 
 }

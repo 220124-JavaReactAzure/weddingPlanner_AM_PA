@@ -9,26 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.weddingPlans.models.Service;
-import com.revature.weddingPlans.models.User;
+import com.revature.weddingPlans.models.Guest;
 import com.revature.weddingPlans.models.Wedding;
-import com.revature.weddingPlans.services.ServiceServices;
+import com.revature.weddingPlans.services.GuestServices;
 import com.revature.weddingPlans.services.WeddingServices;
 
-public class WeddingServlet extends HttpServlet{
 
-	private final WeddingServices weddingServices;
-	private final ServiceServices serviceServices;
+
+
+public class GuestServlet extends HttpServlet{
 	
+	private final GuestServices guestServices;
 	private final ObjectMapper mapper;
+	private final WeddingServices weddingServices;
 	
-	public WeddingServlet(WeddingServices weddingServices, ServiceServices serviceServices, ObjectMapper mapper) {
+	public GuestServlet(GuestServices guestServices, WeddingServices weddingServices, ObjectMapper mapper) {
+		this.guestServices = guestServices;
 		this.weddingServices = weddingServices;
-		this.serviceServices = serviceServices;
 		this.mapper = mapper;
 	}
 	
@@ -37,28 +37,28 @@ public class WeddingServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// Switch statements are back sorry
 		PrintWriter writer = resp.getWriter();
-		// Obtains everything after the /weddings
+		// Obtains everything after the /guests
 		String path = req.getPathInfo();
 		if(path == null) path = "";
 		switch(path) {
 		case "/ID":
 			try {
-				String idParam = req.getParameter("weddingId");
+				String idParam = req.getParameter("GuestId");
 				if(idParam == null) {
 					resp.setStatus(400);
-					writer.write("Please include the query ?weddingId=# in your url");
+					writer.write("Please include the query ?guestId=# in your url");
 					return;
 				}
 				
-				int weddingId = Integer.valueOf(idParam);
+				int guestId = Integer.valueOf(idParam);
 				
 			
-				Wedding wedding = weddingServices.getWeddingById(weddingId);
-				if(wedding == null) {
+				Guest guest = guestServices.getGuestById(guestId);
+				if(guest == null) {
 					resp.setStatus(500);
 					return;
 				}
-				String payload = mapper.writeValueAsString(wedding);
+				String payload = mapper.writeValueAsString(guest);
 				writer.write(payload);
 				resp.setStatus(200);
 			} catch (StreamReadException | DatabindException e) {
@@ -66,8 +66,8 @@ public class WeddingServlet extends HttpServlet{
 			}
 			break;
 		default:
-			List<Wedding> weddings = weddingServices.getAllWeddings();
-			String payload = mapper.writeValueAsString(weddings);
+			List<Guest> guests = guestServices.getAllGuests();
+			String payload = mapper.writeValueAsString(guests);
 			writer.write(payload);
 			resp.setStatus(200);
 			break;
@@ -78,20 +78,17 @@ public class WeddingServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
-			
-			int service_id = newWedding.getService().getId();
-			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
-
-			newWedding.setService(service);
-			
-			boolean wasReg = weddingServices.addWedding(newWedding);
-			if(wasReg) {
-				resp.setStatus(201);
-			} else {
-				resp.setStatus(500);
-				resp.getWriter().write("Database did not persist");
+			String idParam = req.getParameter("weddingId");
+			if(idParam == null) {
+				resp.setStatus(400);
+				resp.getWriter().write("Please include the query ?weddingId=# in your url");
+				return;
 			}
+			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
+			Guest newGuest = mapper.readValue(req.getInputStream(), Guest.class);
+			newGuest.setWedding(wedding);
+			guestServices.insertGuest(newGuest);
+			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");
@@ -106,15 +103,8 @@ public class WeddingServlet extends HttpServlet{
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			Wedding updatedWedding = mapper.readValue(req.getInputStream(), Wedding.class);
-			//weddingServices.updateWeddingWithHQL(updatedWedding);
-
-			int service_id = updatedWedding.getService().getId();
-			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
-			System.out.println(service);
-			updatedWedding.setService(service);
-			
-			weddingServices.updateWeddingWithSessionMethod(updatedWedding);
+			Guest updatedguest = mapper.readValue(req.getInputStream(), Guest.class);
+			guestServices.updateGuestWithSessionMethod(updatedguest);
 			resp.setStatus(204);	
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
