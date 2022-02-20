@@ -7,12 +7,15 @@ import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.revature.weddingPlans.Daos.EmployeeDAO;
 import com.revature.weddingPlans.Daos.ServiceDAO;
 import com.revature.weddingPlans.Daos.UserDAO;
 import com.revature.weddingPlans.Daos.WeddingDAO;
+import com.revature.weddingPlans.services.EmployeeServices;
 import com.revature.weddingPlans.services.ServiceServices;
 import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.services.WeddingServices;
+import com.revature.weddingPlans.web.servlets.EmployeeServlet;
 import com.revature.weddingPlans.web.servlets.ServiceServlet;
 import com.revature.weddingPlans.web.servlets.UserServlet;
 import com.revature.weddingPlans.web.servlets.WeddingServlet;
@@ -36,7 +39,13 @@ public class ContextLoaderListener implements ServletContextListener{
 		UserServices userServices = new UserServices(userDAO);
 		UserServlet userServlet = new UserServlet(userServices, weddingServices,  mapper);
 		
-		context.addServlet("UserServlet", userServlet).addMapping("/users/*");		
+		context.addServlet("UserServlet", userServlet).addMapping("/users/*");			
+		
+		EmployeeDAO employeeDAO = new EmployeeDAO();
+		EmployeeServices employeeServices = new EmployeeServices(employeeDAO);
+		EmployeeServlet employeeServlet = new EmployeeServlet(employeeServices, weddingServices,  mapper);
+		
+		context.addServlet("EmployeeServlet", employeeServlet).addMapping("/employees/*");		
 		
 		ServiceDAO serviceDAO = new ServiceDAO();
 		ServiceServices serviceServices = new ServiceServices(serviceDAO);
