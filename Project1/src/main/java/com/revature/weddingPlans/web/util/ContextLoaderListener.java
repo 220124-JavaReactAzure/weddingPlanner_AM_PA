@@ -18,16 +18,19 @@ import com.revature.weddingPlans.services.WeddingServices;
 //import com.revature.weddingPlans.web.servlets.MealServlet;
 import com.revature.weddingPlans.Daos.EmployeeDAO;
 import com.revature.weddingPlans.Daos.GuestDAO;
+import com.revature.weddingPlans.Daos.MealDAO;
 import com.revature.weddingPlans.Daos.ServiceDAO;
 import com.revature.weddingPlans.Daos.UserDAO;
 import com.revature.weddingPlans.Daos.WeddingDAO;
 import com.revature.weddingPlans.services.EmployeeServices;
 import com.revature.weddingPlans.services.GuestServices;
+import com.revature.weddingPlans.services.MealServices;
 import com.revature.weddingPlans.services.ServiceServices;
 import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.services.WeddingServices;
 import com.revature.weddingPlans.web.servlets.EmployeeServlet;
 import com.revature.weddingPlans.web.servlets.GuestServlet;
+import com.revature.weddingPlans.web.servlets.MealServlet;
 import com.revature.weddingPlans.web.servlets.ServiceServlet;
 import com.revature.weddingPlans.web.servlets.UserServlet;
 import com.revature.weddingPlans.web.servlets.WeddingServlet;
@@ -66,12 +69,12 @@ public class ContextLoaderListener implements ServletContextListener{
 		ServiceServlet serviceServlet = new ServiceServlet(serviceServices, mapper);		
 		context.addServlet("ServiceServlet", serviceServlet).addMapping("/services/*");
 		
-//		MealDAO mealDAO = new MealDAO();
-//		MealServices mealServices = new MealServices(mealDAO);
-//		MealServlet mealServlet = new MealServlet(mealServices, mapper);
-//		
-//		context.addServlet("MealServlet", mealServlet).addMapping("/meals/*");
-//		
+		MealDAO mealDAO = new MealDAO();
+		MealServices mealServices = new MealServices(mealDAO);
+		MealServlet mealServlet = new MealServlet(mealServices, mapper);
+		
+		context.addServlet("MealServlet", mealServlet).addMapping("/meals/*");
+		
 
 		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, serviceServices, mapper);
 		context.addServlet("WeddingServlet", weddingServlet).addMapping("/weddings/*");

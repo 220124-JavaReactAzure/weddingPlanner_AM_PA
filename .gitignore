@@ -10,6 +10,6 @@
 *.classpath
 /target/
 *.classpath
-.settings
-.project
-target
+*.settings
+*.project
+*.target
