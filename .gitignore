@@ -1,14 +1,15 @@
 /.metadata/
 *.class
-# Log file
 *.log
 *.war
 *.lst
 *.properties
-# JAR files
 *.jar
 *.settings
 *.project
 *.classpath
 /target/
 *.classpath
+.settings
+.project
+target
