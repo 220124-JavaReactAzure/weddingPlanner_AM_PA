@@ -23,10 +23,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="product_type", 
-  discriminatorType = DiscriminatorType.INTEGER)
-
 @Table(name="users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="user_type", 
