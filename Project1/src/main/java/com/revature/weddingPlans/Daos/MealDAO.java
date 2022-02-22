@@ -7,6 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.weddingPlans.models.MealType;
+<<<<<<< HEAD
+=======
+import com.revature.weddingPlans.models.User;
+>>>>>>> f3d757b9b460a5f7bdf0da3cf1f4aa93200e1b80
 import com.revature.weddingPlans.util.HibernateUtil;
 
 import java.util.List;
