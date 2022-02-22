@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.weddingPlans.models.MealType;
+import com.revature.weddingPlans.models.Service;
 import com.revature.weddingPlans.models.User;
 import com.revature.weddingPlans.services.MealServices;
 import com.revature.weddingPlans.services.UserServices;
@@ -83,30 +84,22 @@ public class MealServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
-		
 		try {
-			String idParam = req.getParameter("userId");
-			
-			if(idParam == null) {
-				resp.setStatus(400);
-				resp.getWriter().write("Please include the query ?userId=# in your url");
-				return;
+			MealType newMealType = mapper.readValue(req.getInputStream(), MealType.class);
+			boolean wasReg = mealServices.addMeal(newMealType);
+			if(wasReg) {
+				resp.setStatus(201);
+			} else {
+				resp.setStatus(500);
+				resp.getWriter().write("Database did not persist");
 			}
-			
-			User user = userServices.getUserById(Integer.valueOf(idParam));
-			MealType newMeal = mapper.readValue(req.getInputStream(), MealType.class);
-			
-			newMeal.setUser(user);
-			mealServices.insertMeal(newMeal);
-			resp.setStatus(201);
-			
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");
 			e.printStackTrace();
 		} catch (Exception e) {
 			resp.setStatus(500);
-			resp.getWriter().write("Some other exception didn't persist");
+			resp.getWriter().write("Some other random exception did not persist");
 			e.printStackTrace();
 		}
 	}

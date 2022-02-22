@@ -91,32 +91,5 @@ public class User {
 	public void setWedding(Wedding wedding) {
 		this.wedding = wedding;
 	}
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", wedding=" + wedding + "]";
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, username, wedding);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return id == other.id && Objects.equals(username, other.username) && Objects.equals(wedding, other.wedding);
-	}
-
-
 	
 }

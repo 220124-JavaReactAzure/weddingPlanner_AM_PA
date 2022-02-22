@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -42,6 +43,7 @@ public class Service {
 	@Column(name="service_type_id")
 	private int serviceType;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
 	private List<Wedding> weddings;
 
@@ -106,12 +108,4 @@ public class Service {
 		this.serviceType = serviceType;
 	}
 
-
-
-
-
-
-
-
-	
 }
