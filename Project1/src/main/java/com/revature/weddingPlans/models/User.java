@@ -43,10 +43,6 @@ public class User {
 	@JoinColumn(name = "wedding_id") 
 	public Wedding wedding;
 	
-//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "meal_id") 
-//	public MealType mealType;
-	
 	public User() {
 		super();
 	}
@@ -95,24 +91,5 @@ public class User {
 	public void setWedding(Wedding wedding) {
 		this.wedding = wedding;
 	}
-
-	
-
-//	public MealType getMealType() {
-//		return mealType;
-//	}
-//
-//	public void setMealType(MealType mealType) {
-//		this.mealType = mealType;
-//	}
-
-//	@Override
-//	public String toString() {
-//		return "User [id=" + id + ", username=" + username + ", wedding=" + wedding + ", mealType=" + mealType + "]";
-//	}
-
-
-
-
 	
 }

@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -32,6 +33,7 @@ public class MealType {
 	@Column(name="meal_type_name")
 	private String mealTypeName;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="mealType", fetch=FetchType.EAGER)
 	private List<Guest> guests;
 
