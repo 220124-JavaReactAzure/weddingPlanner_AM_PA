@@ -7,6 +7,15 @@ import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.revature.weddingPlans.Daos.MealDAO;
+import com.revature.weddingPlans.Daos.ServiceDAO;
+import com.revature.weddingPlans.Daos.UserDAO;
+import com.revature.weddingPlans.Daos.WeddingDAO;
+import com.revature.weddingPlans.services.MealServices;
+import com.revature.weddingPlans.services.ServiceServices;
+import com.revature.weddingPlans.services.UserServices;
+import com.revature.weddingPlans.services.WeddingServices;
+import com.revature.weddingPlans.web.servlets.MealServlet;
 import com.revature.weddingPlans.Daos.EmployeeDAO;
 import com.revature.weddingPlans.Daos.GuestDAO;
 import com.revature.weddingPlans.Daos.ServiceDAO;
@@ -56,6 +65,12 @@ public class ContextLoaderListener implements ServletContextListener{
 		ServiceServices serviceServices = new ServiceServices(serviceDAO);
 		ServiceServlet serviceServlet = new ServiceServlet(serviceServices, mapper);		
 		context.addServlet("ServiceServlet", serviceServlet).addMapping("/services/*");
+		
+		MealDAO mealDAO = new MealDAO();
+		MealServices mealServices = new MealServices(mealDAO);
+		MealServlet mealServlet = new MealServlet(mealServices, mapper);
+		
+		context.addServlet("MealServlet", mealServlet).addMapping("/meals/*");
 		
 
 		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, serviceServices, mapper);

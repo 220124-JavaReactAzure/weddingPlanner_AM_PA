@@ -27,7 +27,7 @@ public class Employee extends User {
 		super(username, wedding);
 		// TODO Auto-generated constructor stub
 	}
-		
+
 	public Employee(String empNum) {
 		super();
 		this.empNum = empNum;

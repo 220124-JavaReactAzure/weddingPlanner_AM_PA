@@ -12,32 +12,39 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.weddingPlans.models.MealType;
+import com.revature.weddingPlans.models.Service;
 import com.revature.weddingPlans.models.User;
-import com.revature.weddingPlans.models.Wedding;
+import com.revature.weddingPlans.services.MealServices;
 import com.revature.weddingPlans.services.UserServices;
-import com.revature.weddingPlans.services.WeddingServices;
 
-
-public class UserServlet extends HttpServlet{
+public class MealServlet extends HttpServlet {
 	
-	private final UserServices userServices;
+	private final MealServices mealServices;
 	private final ObjectMapper mapper;
-	private final WeddingServices weddingServices;
+	private final UserServices userServices;
 	
-	public UserServlet(UserServices userServices, WeddingServices weddingServices, ObjectMapper mapper) {
+	public MealServlet(MealServices mealServices, UserServices userServices, ObjectMapper mapper) {
+		this.mealServices = mealServices;
 		this.userServices = userServices;
-		this.weddingServices = weddingServices;
 		this.mapper = mapper;
 	}
 	
-	// RCUD - order
+	public MealServlet(MealServices mealServices, ObjectMapper mapper) {
+		this.mealServices = mealServices;
+		this.mapper = mapper;
+		this.userServices = null;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// Switch statements are back sorry
 		PrintWriter writer = resp.getWriter();
-		// Obtains everything after the /users
 		String path = req.getPathInfo();
-		if(path == null) path = "";
+		
+		if(path == null) {
+			path = "";
+		}
+		
 		switch(path) {
 		case "/ID":
 			try {
@@ -48,23 +55,26 @@ public class UserServlet extends HttpServlet{
 					return;
 				}
 				
-				int userId = Integer.valueOf(idParam);				
-			
-				User user = userServices.getUserById(userId);
-				if(user == null) {
+				int userId = Integer.valueOf(idParam);
+				
+				MealType meal = mealServices.getMealById(userId);
+				
+				if(meal == null) {
 					resp.setStatus(500);
 					return;
 				}
-				String payload = mapper.writeValueAsString(user);
+				
+				String payload = mapper.writeValueAsString(meal);
 				writer.write(payload);
 				resp.setStatus(200);
+				
 			} catch (StreamReadException | DatabindException e) {
 				resp.setStatus(400);
 			}
 			break;
 		default:
-			List<User> users = userServices.getAllUsers();
-			String payload = mapper.writeValueAsString(users);
+			List<MealType> meals = mealServices.getAllMeals();
+			String payload = mapper.writeValueAsString(meals);
 			writer.write(payload);
 			resp.setStatus(200);
 			break;
@@ -75,17 +85,14 @@ public class UserServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			String idParam = req.getParameter("weddingId");
-			if(idParam == null) {
-				resp.setStatus(400);
-				resp.getWriter().write("Please include the query ?weddingId=# in your url");
-				return;
+			MealType newMealType = mapper.readValue(req.getInputStream(), MealType.class);
+			boolean wasReg = mealServices.addMeal(newMealType);
+			if(wasReg) {
+				resp.setStatus(201);
+			} else {
+				resp.setStatus(500);
+				resp.getWriter().write("Database did not persist");
 			}
-			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
-			User newUser = mapper.readValue(req.getInputStream(), User.class);
-			newUser.setWedding(wedding);
-			userServices.insertUser(newUser);
-			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");
@@ -100,8 +107,8 @@ public class UserServlet extends HttpServlet{
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			User updateduser = mapper.readValue(req.getInputStream(), User.class);
-			userServices.updateUserWithSessionMethod(updateduser);
+			MealType updatedMeal = mapper.readValue(req.getInputStream(), MealType.class);
+			mealServices.updateMealTypeWithSessionMethod(updatedMeal);
 			resp.setStatus(204);	
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
@@ -119,5 +126,5 @@ public class UserServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		super.doDelete(req, resp);
 	}
-	
+
 }

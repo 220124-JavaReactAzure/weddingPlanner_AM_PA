@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+
 @Table(name="users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="user_type", 
@@ -41,6 +42,10 @@ public class User {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "wedding_id") 
 	public Wedding wedding;
+	
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "meal_id") 
+//	public MealType mealType;
 	
 	public User() {
 		super();
@@ -91,30 +96,22 @@ public class User {
 		this.wedding = wedding;
 	}
 
+	
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", wedding=" + wedding + "]";
-	}
+//	public MealType getMealType() {
+//		return mealType;
+//	}
+//
+//	public void setMealType(MealType mealType) {
+//		this.mealType = mealType;
+//	}
+
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", username=" + username + ", wedding=" + wedding + ", mealType=" + mealType + "]";
+//	}
 
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, username, wedding);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return id == other.id && Objects.equals(username, other.username) && Objects.equals(wedding, other.wedding);
-	}
 
 
 	
