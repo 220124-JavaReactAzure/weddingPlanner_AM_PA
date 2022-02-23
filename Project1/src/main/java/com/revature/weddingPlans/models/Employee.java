@@ -1,10 +1,16 @@
 package com.revature.weddingPlans.models;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @DiscriminatorValue("1")
@@ -13,6 +19,20 @@ public class Employee extends User {
 	@Column(name="employee_number", unique = true, nullable = false)
 	private String empNum;
 	
+	
+//	@JsonBackReference
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@Column(name="emptype_id")
+//	private EmployeeType employeeType;
+//	
+//
+//	public EmployeeType getEmployeeType() {
+//		return employeeType;
+//	}
+//
+//	public void setEmployeeType(EmployeeType employeeType) {
+//		this.employeeType = employeeType;
+//	}
 
 	public Employee() {
 		super();

@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -30,9 +31,22 @@ public class Wedding {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "wedding_id")
 	private int id;
+	
 	@Column(name = "wedding_name")
 	private String weddingName;
 	
+	@Column(name = "wedding_date")
+	private String weddingDate;
+	
+	public String getWeddingDate() {
+		return weddingDate;
+	}
+
+	public void setWeddingDate(String weddingDate) {
+		this.weddingDate = weddingDate;
+	}
+
+	//	@JsonManagedReference
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	private List<User> users;
 	

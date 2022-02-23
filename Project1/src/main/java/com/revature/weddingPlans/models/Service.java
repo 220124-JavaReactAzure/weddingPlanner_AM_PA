@@ -108,4 +108,12 @@ public class Service {
 		this.serviceType = serviceType;
 	}
 
+	@Override
+	public String toString() {
+		return "Service [id=" + id + ", serviceName=" + serviceName + ", serviceCost=" + serviceCost + ", serviceType="
+				+ serviceType + ", weddings=" + weddings + "]";
+	}
+	
+	
+
 }
