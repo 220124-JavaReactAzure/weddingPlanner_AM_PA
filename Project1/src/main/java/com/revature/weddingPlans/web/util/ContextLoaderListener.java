@@ -17,16 +17,19 @@ import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.services.WeddingServices;
 import com.revature.weddingPlans.web.servlets.MealServlet;
 import com.revature.weddingPlans.Daos.EmployeeDAO;
+import com.revature.weddingPlans.Daos.EmployeeTypeDAO;
 import com.revature.weddingPlans.Daos.GuestDAO;
 import com.revature.weddingPlans.Daos.ServiceDAO;
 import com.revature.weddingPlans.Daos.UserDAO;
 import com.revature.weddingPlans.Daos.WeddingDAO;
 import com.revature.weddingPlans.services.EmployeeServices;
+import com.revature.weddingPlans.services.EmployeeTypeServices;
 import com.revature.weddingPlans.services.GuestServices;
 import com.revature.weddingPlans.services.ServiceServices;
 import com.revature.weddingPlans.services.UserServices;
 import com.revature.weddingPlans.services.WeddingServices;
 import com.revature.weddingPlans.web.servlets.EmployeeServlet;
+import com.revature.weddingPlans.web.servlets.EmployeeTypeServlet;
 import com.revature.weddingPlans.web.servlets.GuestServlet;
 import com.revature.weddingPlans.web.servlets.ServiceServlet;
 import com.revature.weddingPlans.web.servlets.UserServlet;
@@ -54,7 +57,12 @@ public class ContextLoaderListener implements ServletContextListener{
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		EmployeeServices employeeServices = new EmployeeServices(employeeDAO);
 		EmployeeServlet employeeServlet = new EmployeeServlet(employeeServices, weddingServices,  mapper);		
-		context.addServlet("EmployeeServlet", employeeServlet).addMapping("/employees/*");		
+		context.addServlet("EmployeeServlet", employeeServlet).addMapping("/employees/*");
+		
+		EmployeeTypeDAO employeeTypeDAO = new EmployeeTypeDAO();
+		EmployeeTypeServices employeeTypeServices = new EmployeeTypeServices(employeeTypeDAO);
+		EmployeeTypeServlet employeeTypeServlet = new EmployeeTypeServlet(employeeTypeServices,  mapper);		
+		context.addServlet("EmployeeTypeServlet", employeeTypeServlet).addMapping("/employeeTypes/*");		
 		
 		GuestDAO guestDAO = new GuestDAO();
 		GuestServices guestServices = new GuestServices(guestDAO);

@@ -18,6 +18,7 @@ public class Guest extends User {
 	@Column(name="plus_one", nullable = false)
 	private boolean plusOne;
 	
+	
 //	@Column(name="betrothed", nullable = false)
 //	private boolean betrothed;
 //	
@@ -28,6 +29,15 @@ public class Guest extends User {
 //	public void setBetrothed(boolean betrothed) {
 //		this.betrothed = betrothed;
 //	}
+
+	private Double price;
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

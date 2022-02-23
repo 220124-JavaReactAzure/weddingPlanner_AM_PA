@@ -33,6 +33,16 @@ public class MealType {
 	@Column(name="meal_type_name")
 	private String mealTypeName;
 	
+	private Double price;
+	
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	@JsonManagedReference
 	@OneToMany(mappedBy="mealType", fetch=FetchType.EAGER)
 	private List<Guest> guests;

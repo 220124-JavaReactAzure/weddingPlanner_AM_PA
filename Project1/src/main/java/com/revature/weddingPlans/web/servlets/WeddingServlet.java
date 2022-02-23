@@ -82,7 +82,7 @@ public class WeddingServlet extends HttpServlet{
 			
 			int service_id = newWedding.getService().getId();
 			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
-
+			System.out.println(service);
 			newWedding.setService(service);
 			
 			boolean wasReg = weddingServices.addWedding(newWedding);

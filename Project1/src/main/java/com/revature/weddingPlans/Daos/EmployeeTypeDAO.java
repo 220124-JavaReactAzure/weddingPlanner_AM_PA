@@ -6,18 +6,18 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.weddingPlans.models.MealType;
+import com.revature.weddingPlans.models.EmployeeType;
 import com.revature.weddingPlans.util.HibernateUtil;
 
 import java.util.List;
 
-public class MealDAO {
+public class EmployeeTypeDAO {
 
-	public void insertMealType(MealType meal) {
+	public void insertEmployeeType(EmployeeType employeeType) {
 
 		try {
 			Session session = HibernateUtil.getSession();
-			session.save(meal);
+			session.save(employeeType);
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -25,10 +25,10 @@ public class MealDAO {
 		}
 	}
 
-	public boolean addMealType(MealType meal) {
+	public boolean addEmployeeType(EmployeeType employeeType) {
 		try {
 			Session session = HibernateUtil.getSession();
-			session.save(meal);
+			session.save(employeeType);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -39,11 +39,11 @@ public class MealDAO {
 		}
 	}
 	
-	public List<MealType> getAllMeals(){
+	public List<EmployeeType> getAllEmployeeTypes(){
 		try {
 			Session session = HibernateUtil.getSession();
-			List<MealType> meals = session.createQuery("FROM MealType").list();
-			return meals;
+			List<EmployeeType> employeeTypes = session.createQuery("FROM EmployeeType").list();
+			return employeeTypes;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -52,11 +52,11 @@ public class MealDAO {
 		}
 	}
 	
-	public MealType getMealById(int id) {
+	public EmployeeType getEmployeeTypeById(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
-			MealType meal = session.get(MealType.class, id);
-			return meal;
+			EmployeeType employeeType = session.get(EmployeeType.class, id);
+			return employeeType;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
@@ -65,12 +65,12 @@ public class MealDAO {
 		}
 	}
 	
-	public void updateMealTypeWithSessionMethod(MealType meal) {
+	public void updateEmployeeTypeWithSessionMethod(EmployeeType employeeType) {
 		try {
 			Session session = HibernateUtil.getSession();
 			// Updates and Deletes always start with a transaction and end with a commit
 			Transaction transaction = session.beginTransaction();
-			session.merge(meal);
+			session.merge(employeeType);
 			transaction.commit();
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
