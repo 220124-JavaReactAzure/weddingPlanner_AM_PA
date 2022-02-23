@@ -38,6 +38,9 @@ public class Wedding {
 	@Column(name = "wedding_date")
 	private String weddingDate;
 	
+	@Column(name = "wedding_budget")
+	private Double weddingBudget;
+	
 	public String getWeddingDate() {
 		return weddingDate;
 	}
@@ -91,11 +94,13 @@ public class Wedding {
 		this.service = service;
 	}
 
+	public Double getWeddingBudget() {
+		return weddingBudget;
+	}
 
+	public void setWeddingBudget(Double weddingBudget) {
+		this.weddingBudget = weddingBudget;
+	}
 
-
-
-
-	
 
 }

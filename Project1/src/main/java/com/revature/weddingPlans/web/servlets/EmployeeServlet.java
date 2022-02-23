@@ -85,9 +85,14 @@ public class EmployeeServlet extends HttpServlet{
 				return;
 			}
 			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
+
 			Employee newEmployee = mapper.readValue(req.getInputStream(), Employee.class);
 			newEmployee.setWedding(wedding);
 			employeeServices.insertEmployee(newEmployee);
+
+			wedding.setWeddingBudget(wedding.getWeddingBudget() - newEmployee.getPrice());
+			weddingServices.updateWeddingWithSessionMethod(wedding);
+			
 			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);

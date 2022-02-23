@@ -88,6 +88,10 @@ public class GuestServlet extends HttpServlet{
 			Guest newGuest = mapper.readValue(req.getInputStream(), Guest.class);
 			newGuest.setWedding(wedding);
 			guestServices.insertGuest(newGuest);
+
+			wedding.setWeddingBudget(wedding.getWeddingBudget() + newGuest.getPrice() - newGuest.getMealType().getPrice());
+			weddingServices.updateWeddingWithSessionMethod(wedding);
+			
 			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);

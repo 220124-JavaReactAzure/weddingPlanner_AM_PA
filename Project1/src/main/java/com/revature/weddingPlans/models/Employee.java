@@ -19,13 +19,14 @@ public class Employee extends User {
 	@Column(name="employee_number", unique = true, nullable = false)
 	private String empNum;
 	
+	private Double price;
 	
+		
 //	@JsonBackReference
 //	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@Column(name="emptype_id")
-//	private EmployeeType employeeType;
+//	@JoinColumn(name = "emptype_id") 
+//	public EmployeeType employeeType;
 //	
-//
 //	public EmployeeType getEmployeeType() {
 //		return employeeType;
 //	}
@@ -33,6 +34,14 @@ public class Employee extends User {
 //	public void setEmployeeType(EmployeeType employeeType) {
 //		this.employeeType = employeeType;
 //	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
 	public Employee() {
 		super();

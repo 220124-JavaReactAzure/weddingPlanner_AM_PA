@@ -30,15 +30,16 @@ public class EmployeeType {
 	@Column(name="emptype_name")
 	private String employeeTypeName;
 	
+	
 //	@JsonManagedReference
 //	@OneToMany(mappedBy="employeeType", fetch=FetchType.EAGER)
 //	private List<Employee> employees;
-//	
+//
 //	public List<Employee> getEmployees() {
 //		return employees;
 //	}
-//	
-//	public void setEmployees(List<Employee> employees) {
+//
+//	public void setGuests(List<Employee> employees) {
 //		this.employees = employees;
 //	}
 	
