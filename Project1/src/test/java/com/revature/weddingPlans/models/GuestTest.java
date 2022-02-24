@@ -18,5 +18,4 @@ public class GuestTest {
 		gst.setFullname("Tester Testerson");
 		assertFalse(gst.getFullname().isEmpty());
 	}
-
 }

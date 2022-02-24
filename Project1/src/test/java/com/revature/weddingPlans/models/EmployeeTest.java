@@ -18,5 +18,4 @@ public class EmployeeTest {
 		emp.setFullname("James Who");
 		assertFalse(emp.getFullname().isEmpty());
 	}
-
 }
