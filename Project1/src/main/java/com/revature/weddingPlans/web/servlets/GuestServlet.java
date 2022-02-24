@@ -89,7 +89,7 @@ public class GuestServlet extends HttpServlet{
 			newGuest.setWedding(wedding);
 			guestServices.insertGuest(newGuest);
 
-			wedding.setWeddingBudget(wedding.getWeddingBudget() + newGuest.getPrice() - newGuest.getMealType().getPrice());
+			wedding.setWeddingBudget(wedding.getWeddingBudget() + newGuest.getPrice());
 			weddingServices.updateWeddingWithSessionMethod(wedding);
 			
 			resp.setStatus(201);
