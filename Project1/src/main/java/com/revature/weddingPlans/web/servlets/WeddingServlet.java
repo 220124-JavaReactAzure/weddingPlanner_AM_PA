@@ -79,7 +79,7 @@ public class WeddingServlet extends HttpServlet{
 		resp.setContentType("application/json");
 		try {
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
-			
+
 			int service_id = newWedding.getService().getId();
 			Service service = serviceServices.getServiceById(Integer.valueOf(service_id));
 			System.out.println(service);

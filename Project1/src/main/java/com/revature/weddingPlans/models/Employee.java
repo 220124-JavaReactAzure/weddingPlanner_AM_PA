@@ -48,15 +48,15 @@ public class Employee extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(int id, String username, Wedding wedding) {
-		super(id, username, wedding);
-		// TODO Auto-generated constructor stub
+	
+
+	public Employee(String empNum, Double price, EmployeeType employeeType) {
+		super();
+		this.empNum = empNum;
+		this.price = price;
+		this.employeeType = employeeType;
 	}
 
-	public Employee(String username, Wedding wedding) {
-		super(username, wedding);
-		// TODO Auto-generated constructor stub
-	}
 	public Employee(String empNum) {
 		super();
 		this.empNum = empNum;

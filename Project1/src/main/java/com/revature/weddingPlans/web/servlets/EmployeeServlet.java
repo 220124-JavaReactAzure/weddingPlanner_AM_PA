@@ -2,6 +2,7 @@ package com.revature.weddingPlans.web.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.weddingPlans.models.Employee;
+import com.revature.weddingPlans.models.User;
 import com.revature.weddingPlans.models.Wedding;
 import com.revature.weddingPlans.services.EmployeeServices;
 import com.revature.weddingPlans.services.WeddingServices;
@@ -87,10 +89,14 @@ public class EmployeeServlet extends HttpServlet{
 			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
 
 			Employee newEmployee = mapper.readValue(req.getInputStream(), Employee.class);
-			newEmployee.setWedding(wedding);
+			ArrayList<User> users = new ArrayList<User>();
+			users.add(newEmployee);
+			wedding.setUsers(users);
+//			wedding.addUser(newEmployee);
+//			newEmployee.addWedding(wedding);
 			employeeServices.insertEmployee(newEmployee);
 
-			wedding.setWeddingBudget(wedding.getWeddingBudget() - newEmployee.getPrice());
+//			wedding.setWeddingBudget(wedding.getWeddingBudget() - newEmployee.getPrice());
 			weddingServices.updateWeddingWithSessionMethod(wedding);
 			
 			resp.setStatus(201);

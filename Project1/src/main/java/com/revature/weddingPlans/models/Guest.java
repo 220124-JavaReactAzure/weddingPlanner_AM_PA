@@ -57,16 +57,16 @@ public class Guest extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Guest(int id, String username, Wedding wedding) {
-		super(id, username, wedding);
-		// TODO Auto-generated constructor stub
-	}
-
-	public Guest(String username, Wedding wedding) {
-		super(username, wedding);
-		// TODO Auto-generated constructor stub
-	}
-		
+//	public Guest(int id, String username, Wedding wedding) {
+//		super(id, username, wedding);
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	public Guest(String username, Wedding wedding) {
+//		super(username, wedding);
+//		// TODO Auto-generated constructor stub
+//	}
+//		
 	public Guest(Boolean plusOne) {
 		super();
 		this.plusOne = plusOne;

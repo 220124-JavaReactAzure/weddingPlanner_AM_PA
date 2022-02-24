@@ -14,6 +14,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -78,29 +80,60 @@ public class User {
 	}
 	
 //	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "wedding_id") 
-	public Wedding wedding;
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "wedding_id") 
+//	public Wedding wedding;
+//	public Wedding getWedding() {
+//		return wedding;
+//	}
+//	public void setWedding(Wedding wedding) {
+//		this.wedding = wedding;
+//	}
 	
+	@ManyToMany(mappedBy = "users")
+    private List<Wedding> weddings = new ArrayList<>();
+	
+	public List<Wedding> getWeddings() {
+		return weddings;
+	}
+	public void setWeddings(List<Wedding> weddings) {
+		this.weddings = weddings;
+	}
+//	public void addWedding(Wedding wedding) {
+//		weddings.add(wedding);
+////		wedding.getUsers().add(this);
+//	}
+//	public void removeUser(Wedding wedding) {
+//		weddings.remove(wedding);
+////		wedding.getUsers().remove(this);
+//	}
+
 	public User() {
 		super();
 	}
 	
-	public User(int id, String username, Wedding wedding) {
+
+	public User(String username, String fullname, String address, String phone, String email, List<Wedding> weddings) {
+		super();
+		this.username = username;
+		this.fullname = fullname;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.weddings = weddings;
+	}
+
+	public User(int id, String username, String fullname, String address, String phone, String email,
+			List<Wedding> weddings) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.wedding = wedding;
+		this.fullname = fullname;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.weddings = weddings;
 	}
-
-
-	public User(String username, Wedding wedding) {
-		super();
-		this.username = username;
-		this.wedding = wedding;
-	}
-
-
 
 	public int getId() {
 		return id;
@@ -121,14 +154,5 @@ public class User {
 		this.username = username;
 	}
 
-
-	public Wedding getWedding() {
-		return wedding;
-	}
-
-
-	public void setWedding(Wedding wedding) {
-		this.wedding = wedding;
-	}
 	
 }

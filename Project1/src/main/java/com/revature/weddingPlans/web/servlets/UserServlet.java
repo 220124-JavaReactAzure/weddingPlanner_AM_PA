@@ -83,8 +83,9 @@ public class UserServlet extends HttpServlet{
 			}
 			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
 			User newUser = mapper.readValue(req.getInputStream(), User.class);
-			newUser.setWedding(wedding);
-			userServices.insertUser(newUser);
+//			newUser.addWedding(wedding);
+//			wedding.addUser(newUser);
+//			userServices.insertUser(newUser);
 			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);

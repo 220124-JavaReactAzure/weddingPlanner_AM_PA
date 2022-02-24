@@ -86,7 +86,7 @@ public class GuestServlet extends HttpServlet{
 			}
 			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
 			Guest newGuest = mapper.readValue(req.getInputStream(), Guest.class);
-			newGuest.setWedding(wedding);
+//			newGuest.addWedding(wedding);
 			guestServices.insertGuest(newGuest);
 
 			wedding.setWeddingBudget(wedding.getWeddingBudget() + newGuest.getPrice());
