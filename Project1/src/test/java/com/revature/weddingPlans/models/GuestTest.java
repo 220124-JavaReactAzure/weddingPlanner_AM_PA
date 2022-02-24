@@ -8,7 +8,15 @@ public class GuestTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		Guest gst = new Guest();
+		assertFalse(gst.equals(null));
+	}
+	
+	@Test
+	public void testNameSetter() {
+		Guest gst = new Guest();
+		gst.setFullname("Tester Testerson");
+		assertFalse(gst.getFullname().isEmpty());
 	}
 
 }
