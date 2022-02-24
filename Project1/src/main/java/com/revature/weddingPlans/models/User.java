@@ -90,7 +90,7 @@ public class User {
 //		this.wedding = wedding;
 //	}
 	
-	@ManyToMany(mappedBy = "users")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Wedding> weddings = new ArrayList<>();
 	
 	public List<Wedding> getWeddings() {
@@ -99,14 +99,14 @@ public class User {
 	public void setWeddings(List<Wedding> weddings) {
 		this.weddings = weddings;
 	}
-//	public void addWedding(Wedding wedding) {
-//		weddings.add(wedding);
-////		wedding.getUsers().add(this);
-//	}
-//	public void removeUser(Wedding wedding) {
-//		weddings.remove(wedding);
-////		wedding.getUsers().remove(this);
-//	}
+	public void addWedding(Wedding wedding) {
+		weddings.add(wedding);
+		wedding.getUsers().add(this);
+	}
+	public void removeUser(Wedding wedding) {
+		weddings.remove(wedding);
+		wedding.getUsers().remove(this);
+	}
 
 	public User() {
 		super();

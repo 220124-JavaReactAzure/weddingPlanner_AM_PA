@@ -50,7 +50,10 @@ public class Wedding {
 	// @JsonManagedReference
 //	@OneToMany(mappedBy = "wedding", fetch = FetchType.EAGER)
 	
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {
+	        CascadeType.PERSIST,
+	        CascadeType.MERGE
+	    })
     @JoinTable(
         name = "wedding_user", 
         joinColumns = { @JoinColumn(name = "wedding_id") }, 

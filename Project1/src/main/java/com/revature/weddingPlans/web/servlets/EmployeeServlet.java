@@ -87,16 +87,10 @@ public class EmployeeServlet extends HttpServlet{
 				return;
 			}
 			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
-
 			Employee newEmployee = mapper.readValue(req.getInputStream(), Employee.class);
-			ArrayList<User> users = new ArrayList<User>();
-			users.add(newEmployee);
-			wedding.setUsers(users);
-//			wedding.addUser(newEmployee);
-//			newEmployee.addWedding(wedding);
+			newEmployee.addWedding(wedding);
 			employeeServices.insertEmployee(newEmployee);
-
-//			wedding.setWeddingBudget(wedding.getWeddingBudget() - newEmployee.getPrice());
+			wedding.setWeddingBudget(wedding.getWeddingBudget() - newEmployee.getPrice());
 			weddingServices.updateWeddingWithSessionMethod(wedding);
 			
 			resp.setStatus(201);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.weddingPlans.models.Employee;
 import com.revature.weddingPlans.models.Guest;
 import com.revature.weddingPlans.models.Wedding;
 import com.revature.weddingPlans.services.GuestServices;
@@ -84,12 +85,12 @@ public class GuestServlet extends HttpServlet{
 				resp.getWriter().write("Please include the query ?weddingId=# in your url");
 				return;
 			}
+			
 			Wedding wedding = weddingServices.getWeddingById(Integer.valueOf(idParam));
 			Guest newGuest = mapper.readValue(req.getInputStream(), Guest.class);
-//			newGuest.addWedding(wedding);
+			newGuest.addWedding(wedding);
 			guestServices.insertGuest(newGuest);
-
-			wedding.setWeddingBudget(wedding.getWeddingBudget() + newGuest.getPrice());
+			wedding.setWeddingBudget(wedding.getWeddingBudget() - newGuest.getPrice());
 			weddingServices.updateWeddingWithSessionMethod(wedding);
 			
 			resp.setStatus(201);
