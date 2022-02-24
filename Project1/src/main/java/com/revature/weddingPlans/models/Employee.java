@@ -23,17 +23,17 @@ public class Employee extends User {
 	
 		
 //	@JsonBackReference
-//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "emptype_id") 
-//	public EmployeeType employeeType;
-//	
-//	public EmployeeType getEmployeeType() {
-//		return employeeType;
-//	}
-//
-//	public void setEmployeeType(EmployeeType employeeType) {
-//		this.employeeType = employeeType;
-//	}
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "emptype_id") 
+	public EmployeeType employeeType;
+	
+	public EmployeeType getEmployeeType() {
+		return employeeType;
+	}
+
+	public void setEmployeeType(EmployeeType employeeType) {
+		this.employeeType = employeeType;
+	}
 
 	public Double getPrice() {
 		return price;
