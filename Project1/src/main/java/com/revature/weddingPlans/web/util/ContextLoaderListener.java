@@ -81,7 +81,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		context.addServlet("MealServlet", mealServlet).addMapping("/meals/*");
 		
 
-		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, serviceServices, mapper);
+		WeddingServlet weddingServlet = new WeddingServlet(weddingServices, serviceServices, employeeServices, mapper);
 		context.addServlet("WeddingServlet", weddingServlet).addMapping("/weddings/*");
 		
 
